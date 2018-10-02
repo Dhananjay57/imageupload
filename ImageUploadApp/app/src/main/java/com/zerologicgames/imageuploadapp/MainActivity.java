@@ -34,6 +34,7 @@ import com.zerologicgames.imageuploadapp.remote.ApiClient;
 import com.zerologicgames.imageuploadapp.remote.ApiInterface;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
 //        try {
 //            if (resultCode == RESULT_OK) {
 //                if (requestCode == REQUEST_GET_SINGLE_FILE) {
@@ -163,9 +165,11 @@ public class MainActivity extends AppCompatActivity {
 
                 // store to sd card on background thread
                 final Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                FileUtils.storeProfileImageToStorage(MainActivity.this, bitmap);
+
                 new Thread(() -> {
                     glide.clearDiskCache();
-                    FileUtils.storeProfileImageToStorage(MainActivity.this, bitmap);
+
                     mHandler.post(() -> {
                         if (MainActivity.this != null) {
                             if (!MainActivity.this.isFinishing()) {
@@ -175,6 +179,17 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 }).start();
+
+                InputStream inputStream = null;
+                try {
+                    inputStream = getContentResolver().openInputStream(FileUtils.getProfileImageFromStorage(this));
+                    FileInputStream fileInputStream = new FileInputStream(FileUtils.getProfileImageFile(this));
+                    uploadImage(getBytes(fileInputStream));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
                 if (error != null)

@@ -8,13 +8,8 @@
     android:layout_height="match_parent"
     tools:context="com.zerologicgames.imageuploadapp.MainActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/iv_picToUpload"
-        android:padding="5dp"
-        app:layout_constraintTop_toTopOf="parent"/>
     <Button
+        android:visibility="visible"
         android:layout_margin="10dp"
         android:id="@+id/btnRequestUploadedImages"
         android:layout_width="wrap_content"
@@ -24,7 +19,9 @@
         android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
+
     <Button
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_upload"
@@ -44,8 +41,6 @@
         android:layout_margin="10dp"
         fab:menu_colorNormal="@color/button_bg"
         fab:menu_labels_colorNormal="@color/button_bg"
-        fab:menu_icon="@drawable/options"
-        fab:menu_labels_colorPressed="#444"
         fab:menu_labels_colorRipple="#66efecec"
         fab:menu_labels_cornerRadius="3dp"
         fab:menu_labels_ellipsize="none"

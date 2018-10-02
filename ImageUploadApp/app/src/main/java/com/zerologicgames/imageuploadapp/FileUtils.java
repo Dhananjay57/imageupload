@@ -68,6 +68,12 @@ public class FileUtils {
         }
     }
 
+    public static File getProfileImageFile(Context context) {
+        File parentDirectory = getParentDirectory(context, FileType.PROFILE_IMAGE);
+        File file = new File(parentDirectory, "profile_pic.jpg");
+        return file;
+    }
+
     private static File getParentDirectory(Context context, FileType fileType) {
         if (fileType == FileType.PROFILE_IMAGE)
             return new File(context.getFilesDir(), DIRECTORY_PROFILE_IMAGE);
