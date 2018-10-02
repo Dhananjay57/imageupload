@@ -1,4 +1,4 @@
-package com.zerologicgames.imageuploadapp.base;
+package com.dhananjay.imageuploadapp.base;
 
 import android.app.Application;
 
@@ -10,7 +10,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         Timber.plant(new Timber.DebugTree());
     }
 }

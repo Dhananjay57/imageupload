@@ -1,4 +1,4 @@
-package com.zerologicgames.imageuploadapp
+package com.dhananjay.imageuploadapp
 
 import org.junit.Test
 

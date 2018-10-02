@@ -1,4 +1,4 @@
-package com.zerologicgames.imageuploadapp.model;
+package com.dhananjay.imageuploadapp.model;
 
 
 public class UploadImageResponse {

@@ -1,4 +1,4 @@
-package com.zerologicgames.imageuploadapp.remote;
+package com.dhananjay.imageuploadapp.remote;
 
 
 import okhttp3.OkHttpClient;

@@ -1,8 +1,10 @@
-package com.zerologicgames.imageuploadapp;
+package com.dhananjay.imageuploadapp.Utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+
+import com.dhananjay.imageuploadapp.Utils.FileType;
 
 import java.io.File;
 import java.io.FileOutputStream;

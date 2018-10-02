@@ -1,4 +1,4 @@
-package com.zerologicgames.imageuploadapp;
+package com.dhananjay.imageuploadapp.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -10,12 +10,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -23,22 +20,23 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.dhananjay.imageuploadapp.Utils.FileUtils;
+import com.dhananjay.imageuploadapp.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.mlsdev.rximagepicker.RxImagePicker;
 import com.mlsdev.rximagepicker.Sources;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.zerologicgames.imageuploadapp.Utils.PermissionManager;
-import com.zerologicgames.imageuploadapp.model.UploadImageResponse;
-import com.zerologicgames.imageuploadapp.remote.ApiClient;
-import com.zerologicgames.imageuploadapp.remote.ApiInterface;
+import com.dhananjay.imageuploadapp.Utils.PermissionManager;
+import com.dhananjay.imageuploadapp.model.UploadImageResponse;
+import com.dhananjay.imageuploadapp.remote.ApiClient;
+import com.dhananjay.imageuploadapp.remote.ApiInterface;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.UUID;
 
 import okhttp3.MediaType;
@@ -65,14 +63,10 @@ public class MainActivity extends AppCompatActivity {
          floatingActionMenu = findViewById(R.id.floating_menu);
          fab_camera = findViewById(R.id.camera_fab);
          fab_gallery = findViewById(R.id.gallary_fab);
-        imageView = findViewById(R.id.iv_picToUpload);
+         imageView = findViewById(R.id.iv_picToUpload);
         fab_camera.setOnClickListener(view -> takePhoto());
         fab_gallery.setOnClickListener(view -> pickFromGallery());
         btn_upload = findViewById(R.id.btn_upload);
-        btn_upload.setVisibility(View.GONE);
-        btn_upload.setOnClickListener(view -> uploadImageToServer());
-
-      //  btnChooseAndUpload.setOnClickListener(view -> choosImage());
 
         Button btnRequestUploadedImages = findViewById(R.id.btnRequestUploadedImages);
         btnRequestUploadedImages.setOnClickListener(view -> {
@@ -114,17 +108,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    private void choosImage() {
-//        if (!PermissionManager.getInstance().hasGrantedPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-//            PermissionManager.getInstance().requestPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, PERMISSION_READ_EXTERNAL_STORAGE);
-//            return;
-//        }
-//
-//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//        intent.setType("image/jpeg");
-//        startActivityForResult(intent, REQUEST_GET_SINGLE_FILE);
-//    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -134,28 +117,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        try {
-//            if (resultCode == RESULT_OK) {
-//                if (requestCode == REQUEST_GET_SINGLE_FILE) {
-//                    InputStream is = getContentResolver().openInputStream(data.getData());
-//                    uploadImage(getBytes(is));
-//                }
-//            }
-//        } catch (Exception e) {
-//            Log.e("FileSelectorActivity", "File select error", e);
-//        }
-
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri uri = result.getUri();
-//                //  new AppPreferences(activity).setUserImageUri(uri);
-//                try {
-//                    InputStream inputStream = getContentResolver().openInputStream(data.getData());
-//                    uploadImage(getBytes(inputStream));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
 
                 Drawable drawable = BitmapDrawable.createFromPath(uri.getPath());
                 imageView.setImageDrawable(drawable);
@@ -174,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
                         if (MainActivity.this != null) {
                             if (!MainActivity.this.isFinishing()) {
                                 showProfileImage(this , imageView);
-                                btn_upload.setVisibility(View.VISIBLE);
                             }
                         }
                     });
@@ -214,10 +178,6 @@ public class MainActivity extends AppCompatActivity {
         return byteBuff.toByteArray();
     }
 
-    private void uploadImageToServer(){
-       //call Upload method
-
-    }
 
     private void uploadImage(byte[] imageBytes) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageBytes);
@@ -234,13 +194,13 @@ public class MainActivity extends AppCompatActivity {
                                 .enqueue(new Callback<Void>() {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
-                                        Toast.makeText(MainActivity.this, "Successful MSG",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(MainActivity.this, "Image Successfully Uploaded",Toast.LENGTH_LONG).show();
 
                                     }
 
                                     @Override
                                     public void onFailure(Call<Void> call, Throwable t) {
-                                        Toast.makeText(MainActivity.this, "Error MSG",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(MainActivity.this, "Something went wrong",Toast.LENGTH_LONG).show();
 
                                     }
                                 });

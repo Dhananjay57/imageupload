@@ -1,21 +1,21 @@
-package com.zerologicgames.imageuploadapp;
+package com.dhananjay.imageuploadapp.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
+import android.view.MenuItem;
 
-import com.zerologicgames.imageuploadapp.model.UploadImageResponse;
-import com.zerologicgames.imageuploadapp.remote.ApiClient;
-import com.zerologicgames.imageuploadapp.remote.ApiInterface;
+import com.dhananjay.imageuploadapp.DownloadedImageAdapter;
+import com.dhananjay.imageuploadapp.R;
+import com.dhananjay.imageuploadapp.model.UploadImageResponse;
+import com.dhananjay.imageuploadapp.remote.ApiClient;
+import com.dhananjay.imageuploadapp.remote.ApiInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -31,16 +31,31 @@ public class DownloadedImageActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.downloaded_image_activity);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("Downloaded Images");
+
         recyclerView = findViewById(R.id.recyclerView);
         getUploadedImages();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+       // LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(gridLayoutManager);
         setAdapterList();
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setAdapterList() {
-        if(imageUrlList.size()>0) {
+        if (imageUrlList.size() > 0) {
             downloadedImageAdapter = new DownloadedImageAdapter(DownloadedImageActivity.this, imageUrlList);
             recyclerView.setAdapter(downloadedImageAdapter);
             downloadedImageAdapter.notifyDataSetChanged();

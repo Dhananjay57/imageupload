@@ -1,4 +1,4 @@
-package com.zerologicgames.imageuploadapp.Utils;
+package com.dhananjay.imageuploadapp.Utils;
 
 import android.app.Activity;
 import android.content.Context;

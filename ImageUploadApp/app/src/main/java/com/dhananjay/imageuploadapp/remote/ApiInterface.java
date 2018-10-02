@@ -1,6 +1,6 @@
-package com.zerologicgames.imageuploadapp.remote;
+package com.dhananjay.imageuploadapp.remote;
 
-import com.zerologicgames.imageuploadapp.model.UploadImageResponse;
+import com.dhananjay.imageuploadapp.model.UploadImageResponse;
 
 import java.util.HashMap;
 

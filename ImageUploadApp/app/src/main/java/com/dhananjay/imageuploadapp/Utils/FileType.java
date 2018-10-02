@@ -1,4 +1,4 @@
-package com.zerologicgames.imageuploadapp;
+package com.dhananjay.imageuploadapp.Utils;
 
 public enum FileType {
 
