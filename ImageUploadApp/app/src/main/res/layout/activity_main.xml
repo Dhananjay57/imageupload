@@ -16,10 +16,11 @@
     <Button
         android:visibility="visible"
         android:layout_margin="10dp"
+        android:padding="3dp"
         android:id="@+id/btnRequestUploadedImages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="See uploaded images"
+        android:text="@string/view_uploaded_images"
         android:background="@color/button_bg"
         android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"

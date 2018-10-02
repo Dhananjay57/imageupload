@@ -34,7 +34,7 @@ public class DownloadedImageActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle("Downloaded Images");
+        getSupportActionBar().setTitle("Uploaded Images");
 
         recyclerView = findViewById(R.id.recyclerView);
         getUploadedImages();

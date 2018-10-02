@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setTitle("Home");
          floatingActionMenu = findViewById(R.id.floating_menu);
          fab_camera = findViewById(R.id.camera_fab);
          fab_gallery = findViewById(R.id.gallary_fab);

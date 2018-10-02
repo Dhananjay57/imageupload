@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ImageUploadApp</string>
+    <string name="view_uploaded_images">View images</string>
 </resources>

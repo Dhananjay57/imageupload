@@ -22,7 +22,7 @@ public class FullImageViewActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle("Full ImageView");
+        getSupportActionBar().setTitle("FullScreen ImageView");
 
         Intent intent = getIntent();
         imageUrl = intent.getExtras().getString("imageUrl");
